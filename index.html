@@ -1,61 +1,82 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Scientific Calculator - SkillCraft</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Calculator - HTML/CSS/JS</title>
+    <meta name="description" content="A fully functional calculator with keyboard support, error handling, and beautiful animations">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">Interactive Calculator</h1>
+            <p class="subtitle">A fully functional calculator with keyboard support and error handling, </p>
+        </div>
 
-  <div class="calculator">
-    <input type="text" id="display" placeholder="0" disabled />
-    
-    <div class="buttons">
+        <!-- Calculator -->
+        <div class="calculator">
+            <!-- Display -->
+            <div class="calc-display">
+                <div class="current-display" id="display">0</div>
+                <div class="operation-display" id="operation-display"></div>
+            </div>
 
-      <!-- Row 1: Clear, Backspace, Parentheses -->
-      <button class="btn" data-action="clear">C</button>
-      <button class="btn" data-action="backspace">←</button>
-      <button class="btn" data-value="(">(</button>
-      <button class="btn" data-value=")">)</button>
+            <!-- Button Grid -->
+            <div class="button-grid">
+                <!-- First Row -->
+                <button class="calc-btn calc-btn-clear" id="clear" data-action="clear">Clear</button>
+                <button class="calc-btn calc-btn-operator" id="backspace" data-action="backspace">⌫</button>
+                <button class="calc-btn calc-btn-operator" data-action="operator" data-operator="/">÷</button>
 
-      <!-- Row 2: sin, cos, tan, log -->
-      <button class="btn" data-func="sin">sin</button>
-      <button class="btn" data-func="cos">cos</button>
-      <button class="btn" data-func="tan">tan</button>
-      <button class="btn" data-func="log">log</button>
+                <!-- Second Row -->
+                <button class="calc-btn calc-btn-number" data-action="number" data-number="7">7</button>
+                <button class="calc-btn calc-btn-number" data-action="number" data-number="8">8</button>
+                <button class="calc-btn calc-btn-number" data-action="number" data-number="9">9</button>
+                <button class="calc-btn calc-btn-operator" data-action="operator" data-operator="*">×</button>
 
-      <!-- Row 3: ln, sqrt, ^, / -->
-      <button class="btn" data-func="ln">ln</button>
-      <button class="btn" data-func="sqrt">√</button>
-      <button class="btn" data-value="^">^</button>
-      <button class="btn" data-value="/">÷</button>
+                <!-- Third Row -->
+                <button class="calc-btn calc-btn-number" data-action="number" data-number="4">4</button>
+                <button class="calc-btn calc-btn-number" data-action="number" data-number="5">5</button>
+                <button class="calc-btn calc-btn-number" data-action="number" data-number="6">6</button>
+                <button class="calc-btn calc-btn-operator" data-action="operator" data-operator="-">-</button>
 
-      <!-- Row 4: 7,8,9,* -->
-      <button class="btn" data-value="7">7</button>
-      <button class="btn" data-value="8">8</button>
-      <button class="btn" data-value="9">9</button>
-      <button class="btn" data-value="*">×</button>
+                <!-- Fourth Row -->
+                <button class="calc-btn calc-btn-number" data-action="number" data-number="1">1</button>
+                <button class="calc-btn calc-btn-number" data-action="number" data-number="2">2</button>
+                <button class="calc-btn calc-btn-number" data-action="number" data-number="3">3</button>
+                <button class="calc-btn calc-btn-operator" data-action="operator" data-operator="+">+</button>
 
-      <!-- Row 5: 4,5,6,- -->
-      <button class="btn" data-value="4">4</button>
-      <button class="btn" data-value="5">5</button>
-      <button class="btn" data-value="6">6</button>
-      <button class="btn" data-value="-">−</button>
+                <!-- Fifth Row -->
+                <button class="calc-btn calc-btn-number zero-btn" data-action="number" data-number="0">0</button>
+                <button class="calc-btn calc-btn-number" data-action="decimal">.</button>
+                <button class="calc-btn calc-btn-equals" id="equals" data-action="equals">=</button>
+            </div>
 
-      <!-- Row 6: 1,2,3,+ -->
-      <button class="btn" data-value="1">1</button>
-      <button class="btn" data-value="2">2</button>
-      <button class="btn" data-value="3">3</button>
-      <button class="btn" data-value="+">+</button>
+            <!-- Keyboard Hint -->
+            <div class="keyboard-hint">
+                Keyboard supported • ESC to clear • Backspace to delete
+            </div>
+        </div>
 
-      <!-- Row 7: 0, ., = -->
-      <button class="btn zero" data-value="0">0</button>
-      <button class="btn" data-value=".">.</button>
-      <button class="btn equal" data-action="equal">=</button>
+        <!-- Features -->
+        <div class="features">
+            <h2 class="features-title">Features</h2>
+            <div class="features-grid">
+                <div class="feature">✨ Keyboard Support</div>
+                <div class="feature">🔢 Basic Arithmetic</div>
+                <div class="feature">⚡ Real-time Updates</div>
+                <div class="feature">🛡️ Error Handling</div>
+                <div class="feature">🎨 Colorful Design</div>
+                <div class="feature">📱 Responsive Layout</div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <script src="script.js"></script>
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="script.js"></script>
 </body>
 </html>

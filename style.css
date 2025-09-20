@@ -1,72 +1,311 @@
 * {
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Background gradients */
+    --background: 240 10% 6%;
+    --foreground: 0 0% 98%;
+
+    /* Calculator specific colors */
+    --calc-display: 240 10% 12%;
+    --calc-display-text: 0 0% 95%;
+    
+    /* Button colors */
+    --calc-number: 240 5% 18%;
+    --calc-number-hover: 240 5% 25%;
+    --calc-number-foreground: 0 0% 90%;
+    
+    --calc-operator: 280 100% 60%;
+    --calc-operator-hover: 280 100% 70%;
+    --calc-operator-foreground: 0 0% 100%;
+    
+    --calc-equals: 120 100% 45%;
+    --calc-equals-hover: 120 100% 55%;
+    --calc-equals-foreground: 0 0% 100%;
+    
+    --calc-clear: 0 100% 60%;
+    --calc-clear-hover: 0 100% 70%;
+    --calc-clear-foreground: 0 0% 100%;
+
+    /* Gradients */
+    --gradient-bg: linear-gradient(135deg, hsl(240 10% 8%) 0%, hsl(260 15% 12%) 50%, hsl(280 20% 10%) 100%);
+    --gradient-display: linear-gradient(145deg, hsl(240 10% 15%) 0%, hsl(240 8% 10%) 100%);
+
+    /* Shadows and effects */
+    --shadow-button: 0 4px 15px hsl(240 10% 5% / 0.4);
+    --shadow-button-hover: 0 6px 20px hsl(240 10% 5% / 0.6);
+    --shadow-display: inset 0 2px 10px hsl(240 10% 5% / 0.5);
+    --shadow-glow: 0 0 30px;
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background: #f5f5f5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: var(--gradient-bg);
+    color: hsl(var(--foreground));
+    min-height: 100vh;
+    line-height: 1.6;
 }
 
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    gap: 2rem;
+}
+
+/* Header Styles */
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: bold;
+    background: linear-gradient(to right, #a855f7, #ec4899, #ef4444);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    font-size: 1.125rem;
+    color: hsl(var(--foreground) / 0.8);
+    max-width: 28rem;
+    margin: 0 auto;
+}
+
+/* Calculator Styles */
 .calculator {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-  width: 360px;
-  padding: 20px;
+    max-width: 24rem;
+    background: hsl(var(--calc-display) / 0.5);
+    backdrop-filter: blur(16px);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid hsl(240 10% 20% / 0.3);
+    box-shadow: 0 25px 50px -12px hsl(240 10% 5% / 0.8);
 }
 
-#display {
-  width: 100%;
-  height: 60px;
-  font-size: 2rem;
-  text-align: right;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  margin-bottom: 15px;
-  user-select: none;
-  background: #eaeaea;
+.calc-display {
+    background: var(--gradient-display);
+    color: hsl(var(--calc-display-text));
+    box-shadow: var(--shadow-display);
+    border: 1px solid hsl(240 10% 20%);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: right;
 }
 
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
+.current-display {
+    font-size: 2.25rem;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.05em;
+    word-break: break-all;
+    min-height: 2.7rem;
 }
 
-.btn {
-  padding: 18px;
-  font-size: 1.3rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  background: #f0f0f0;
-  transition: background 0.3s;
-  user-select: none;
+.operation-display {
+    font-size: 0.875rem;
+    opacity: 0.6;
+    margin-top: 0.25rem;
+    min-height: 1rem;
 }
 
-.btn:hover {
-  background: #d4d4d4;
+/* Button Grid */
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
 }
 
-.equal {
-  grid-column: 4 / 5;
-  grid-row: 7 / 8;
-  background: #4caf50;
-  color: white;
-  font-weight: bold;
+.calc-btn {
+    height: 4rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.15s ease-out;
+    box-shadow: var(--shadow-button);
+    outline: none;
+    position: relative;
+    overflow: hidden;
 }
 
-.equal:hover {
-  background: #45a049;
+.calc-btn:hover {
+    box-shadow: var(--shadow-button-hover);
 }
 
-.zero {
-  grid-column: 1 / 3;
+.calc-btn:active {
+    transform: scale(0.95);
 }
 
+.calc-btn:focus {
+    outline: 2px solid hsl(var(--calc-operator));
+    outline-offset: 2px;
+}
+
+/* Button Variants */
+.calc-btn-number {
+    background: linear-gradient(145deg, hsl(var(--calc-number)) 0%, hsl(240 5% 15%) 100%);
+    color: hsl(var(--calc-number-foreground));
+    border: 1px solid hsl(240 5% 25%);
+}
+
+.calc-btn-number:hover {
+    background: linear-gradient(145deg, hsl(var(--calc-number-hover)) 0%, hsl(240 5% 22%) 100%);
+}
+
+.calc-btn-operator {
+    background: linear-gradient(145deg, hsl(var(--calc-operator)) 0%, hsl(285 95% 55%) 100%);
+    color: hsl(var(--calc-operator-foreground));
+    border: 1px solid hsl(285 80% 70%);
+}
+
+.calc-btn-operator:hover {
+    background: linear-gradient(145deg, hsl(var(--calc-operator-hover)) 0%, hsl(285 95% 65%) 100%);
+    box-shadow: var(--shadow-glow) hsl(var(--calc-operator) / 0.3);
+}
+
+.calc-btn-equals {
+    background: linear-gradient(145deg, hsl(var(--calc-equals)) 0%, hsl(125 95% 40%) 100%);
+    color: hsl(var(--calc-equals-foreground));
+    border: 1px solid hsl(125 80% 60%);
+}
+
+.calc-btn-equals:hover {
+    background: linear-gradient(145deg, hsl(var(--calc-equals-hover)) 0%, hsl(125 95% 50%) 100%);
+    box-shadow: var(--shadow-glow) hsl(var(--calc-equals) / 0.4);
+}
+
+.calc-btn-clear {
+    background: linear-gradient(145deg, hsl(var(--calc-clear)) 0%, hsl(5 95% 55%) 100%);
+    color: hsl(var(--calc-clear-foreground));
+    border: 1px solid hsl(5 80% 70%);
+    grid-column: span 2;
+}
+
+.calc-btn-clear:hover {
+    background: linear-gradient(145deg, hsl(var(--calc-clear-hover)) 0%, hsl(5 95% 65%) 100%);
+    box-shadow: var(--shadow-glow) hsl(var(--calc-clear) / 0.4);
+}
+
+.zero-btn {
+    grid-column: span 2;
+}
+
+/* Keyboard Hint */
+.keyboard-hint {
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    text-align: center;
+    opacity: 0.6;
+}
+
+/* Features Section */
+.features {
+    text-align: center;
+    max-width: 32rem;
+    margin: 0 auto;
+}
+
+.features-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: hsl(var(--foreground) / 0.9);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.feature {
+    font-size: 0.875rem;
+    color: hsl(var(--foreground) / 0.7);
+}
+
+/* Toast Styles */
+.toast-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1000;
+}
+
+.toast {
+    background: hsl(var(--calc-clear));
+    color: hsl(var(--calc-clear-foreground));
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 10px 25px hsl(240 10% 5% / 0.5);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
+    max-width: 20rem;
+}
+
+.toast.show {
+    transform: translateX(0);
+}
+
+.toast-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.toast-description {
+    font-size: 0.875rem;
+    opacity: 0.9;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+    .title {
+        font-size: 2.25rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .calculator {
+        max-width: 20rem;
+        padding: 1rem;
+    }
+    
+    .calc-btn {
+        height: 3.5rem;
+        font-size: 1.125rem;
+    }
+    
+    .current-display {
+        font-size: 2rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+}
+
+/* Button Press Animation */
+@keyframes buttonPress {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+.calc-btn.pressed {
+    animation: buttonPress 0.1s ease-out;
+}
